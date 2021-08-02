@@ -1,6 +1,22 @@
-type ExampleEntity @entity {
-  id: ID!
-  count: BigInt!
-  user: Bytes! # address
-  content: String! # string
+
+type Transaction @entity {
+id:           ID!
+timestamp:    BigInt!
+blockNumber:  BigInt!
+from:         Account!
+value:        BigInt!
+posts:        [Post!]! @derivedFrom(field: "tx")
+}
+
+type Account @entity {
+id:           ID!
+transactions: [Transaction!]! @derivedFrom(field: "from")
+posts:        [Post!]! @derivedFrom(field: "poster")
+}
+
+type Post @entity {
+id:           ID!
+poster:       Account!
+content:      String!
+tx:           Transaction!
 }
