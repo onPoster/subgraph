@@ -1,4 +1,0 @@
-[{
-  "name": "PersistentStringArray",
-  "fields": [{ "name": "values", "type": "[String!]!" }]
-}]

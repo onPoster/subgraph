@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: Poster
@@ -17,8 +17,8 @@ dataSources:
         - NewPost
       abis:
         - name: Poster
-          file: ./abis/Poster.json
+          file: Poster/abis/Poster.json
       eventHandlers:
         - event: NewPost(indexed address,string)
           handler: handleNewPost
-      file: ./src/mapping.ts
+      file: Poster/Poster.wasm

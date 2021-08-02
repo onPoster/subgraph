@@ -176,13 +176,13 @@ export class Post extends Entity {
     this.set("poster", Value.fromString(value));
   }
 
-  get content(): string {
-    let value = this.get("content");
+  get rawContent(): string {
+    let value = this.get("rawContent");
     return value.toString();
   }
 
-  set content(value: string) {
-    this.set("content", Value.fromString(value));
+  set rawContent(value: string) {
+    this.set("rawContent", Value.fromString(value));
   }
 
   get tx(): string {

@@ -1,4 +1,0 @@
-[{
-  "name": "PersistentString",
-  "fields": [{ "name": "value", "type": "String!" }]
-}]
