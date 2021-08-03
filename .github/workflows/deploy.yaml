@@ -1,13 +1,11 @@
 name: Subgraph Deploy
 
-# Ideally these come from GitHub secrets (e.g. ${{ secrets.value }}) but
-# for simplicity we are putting these in plain text.
 env:
   SUBGRAPH_ID: ${{ secrets.THEGRAPH_SUBGRAPH_ID }}
 
 on:
   push:
-    branches: ['master', 'jjpa/**']
+    branches: ['master']
 
 jobs:
   build:
