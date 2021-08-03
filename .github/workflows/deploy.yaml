@@ -1,0 +1,39 @@
+name: Subgraph Deploy
+
+# Ideally these come from GitHub secrets (e.g. ${{ secrets.value }}) but
+# for simplicity we are putting these in plain text.
+env:
+  SUBGRAPH_ID: 'jjperezaguinaga/poster-crt'
+
+on:
+  push:
+    branches: ['master', 'jjpa/**'] # @TODO: Remove jjpa/** before merge
+
+jobs:
+  build:
+    name: Build subgraph code
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          registry-url: https://registry.npmjs.org/
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Generate assembly script types
+        run: |
+          npm run codegen
+
+      - name: Build wasm build for IPFS via graph-cli
+        run: |
+          npm run build
+
+      - name: Deploy subgraph to legacy explorer
+        run: |
+          npm run deploy -- ${{ env.SUBGRAPH_ID }} --accessToken ${{ secrets.THEGRAPH_LEGACY_ACCESS_TOKEN }}
