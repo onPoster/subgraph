@@ -3,11 +3,11 @@ name: Subgraph Deploy
 # Ideally these come from GitHub secrets (e.g. ${{ secrets.value }}) but
 # for simplicity we are putting these in plain text.
 env:
-  SUBGRAPH_ID: 'jjperezaguinaga/poster-crt'
+  SUBGRAPH_ID: ${{ secrets.THEGRAPH_SUBGRAPH_ID }}
 
 on:
   push:
-    branches: ['master', 'jjpa/**'] # @TODO: Remove jjpa/** before merge
+    branches: ['master', 'jjpa/**']
 
 jobs:
   build:
