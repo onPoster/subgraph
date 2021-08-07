@@ -1,6 +1,7 @@
 {
   "name": "@eth-poster/subgraph",
   "license": "UNLICENSED",
+  "version": "0.1.0",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
