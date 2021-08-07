@@ -1,5 +1,5 @@
 {
-  "name": "Poster-Subgraph",
+  "name": "@eth-poster/subgraph",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
