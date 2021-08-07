@@ -15,6 +15,6 @@ export function handleNewPost(event: NewPost): void {
   post.rawContent = event.params.content
   post.tx = tx.id
 
-  post.save();
+  post.rawContent.length <= 300 && post.save();
 
 }
