@@ -1,8 +1,5 @@
 name: Subgraph Deploy
 
-env:
-  SUBGRAPH_ID: ${{ secrets.THEGRAPH_SUBGRAPH_ID }}
-
 on:
   push:
     branches: ['main']
@@ -11,6 +8,15 @@ jobs:
   build:
     name: Build subgraph code
     runs-on: 'ubuntu-latest'
+
+    strategy:
+      matrix:
+        network: ['goerli', 'polygon']
+        include:
+          - network: goerli
+            subgraph: jjperezaguinaga/poster-crt
+          - network: polygon
+            subgraph: jjperezaguinaga/poster-polygon
 
     steps:
       - uses: actions/checkout@v2
@@ -32,6 +38,14 @@ jobs:
         run: |
           npm run build
 
-      - name: Deploy subgraph to legacy explorer
+      - name: Compile schema for specific network
+        env:
+          NETWORK: ${{ matrix.network }}
         run: |
-          npm run deploy -- ${{ env.SUBGRAPH_ID }} --accessToken ${{ secrets.THEGRAPH_LEGACY_ACCESS_TOKEN }}
+          NETWORK=${{ env.NETWORK }} npm run prepare
+
+      - name: Deploy subgraph to legacy explorer
+        env:
+          SUBGRAPH: ${{ matrix.subgraph }}
+        run: |
+          npm run deploy -- ${{ env.SUBGRAPH }} --accessToken ${{ secrets.THEGRAPH_LEGACY_ACCESS_TOKEN }}
