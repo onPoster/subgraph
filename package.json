@@ -5,6 +5,7 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
+    "prepare": "mustache ./config/$NETWORK.json subgraph.template.yaml > subgraph.yaml",
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/",
     "create-local": "graph create --node http://localhost:8020/ crazyrabbitltc/Poster-Subgraph",
     "remove-local": "graph remove --node http://localhost:8020/ crazyrabbitltc/Poster-Subgraph",
@@ -13,5 +14,8 @@
   "dependencies": {
     "@graphprotocol/graph-cli": "0.21.1",
     "@graphprotocol/graph-ts": "0.20.0"
+  },
+  "devDependencies": {
+    "mustache": "^4.2.0"
   }
 }
