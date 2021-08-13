@@ -42,7 +42,7 @@ jobs:
         env:
           NETWORK: ${{ matrix.network }}
         run: |
-          NETWORK=${{ env.NETWORK }} npm run prepare
+          NETWORK=${{ env.NETWORK }} npm run define
 
       - name: Deploy subgraph to legacy explorer
         env:
