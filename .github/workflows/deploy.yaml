@@ -43,4 +43,4 @@ jobs:
         env:
           NETWORK: ${{ matrix.network }}
         run: |
-          npm run deploy -- jjperezaguinaga/poster-${{ env.network }} --accessToken ${{ secrets.THEGRAPH_LEGACY_ACCESS_TOKEN }}
+          npm run deploy -- jjperezaguinaga/poster-${{ env.NETWORK }} --accessToken ${{ secrets.THEGRAPH_LEGACY_ACCESS_TOKEN }}
