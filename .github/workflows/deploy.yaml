@@ -12,11 +12,6 @@ jobs:
     strategy:
       matrix:
         network: ['goerli', 'polygon']
-        include:
-          - network: goerli
-            subgraph: jjperezaguinaga/poster-crt
-          - network: polygon
-            subgraph: jjperezaguinaga/poster-polygon
 
     steps:
       - uses: actions/checkout@v2
@@ -46,6 +41,6 @@ jobs:
 
       - name: Deploy subgraph to legacy explorer
         env:
-          SUBGRAPH: ${{ matrix.subgraph }}
+          NETWORK: ${{ matrix.network }}
         run: |
-          npm run deploy -- ${{ env.SUBGRAPH }} --accessToken ${{ secrets.THEGRAPH_LEGACY_ACCESS_TOKEN }}
+          npm run deploy -- jjperezaguinaga/poster-${{ env.network }} --accessToken ${{ secrets.THEGRAPH_LEGACY_ACCESS_TOKEN }}
