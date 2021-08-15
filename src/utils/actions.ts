@@ -28,7 +28,7 @@ export namespace actions {
                 let replyToTransactionId = replyTo.toString()
                 let tx = Transaction.load(replyToTransactionId)
                 if (tx != null) { 
-                    return createReplyToAction(contentId, textContent, tx, constants.MICROBLOG_POST_TYPE)
+                    return createReplyToAction(contentId, textContent, replyToTransactionId, constants.MICROBLOG_POST_TYPE)
                 }
             }
             return createTextAction(contentId, textContent, constants.MICROBLOG_POST_TYPE)
@@ -45,11 +45,11 @@ export namespace actions {
         return action as Action;
     }
 
-    export function createReplyToAction(contentId: string, text: string, transaction: Transaction, type: string): Action {
+    export function createReplyToAction(contentId: string, text: string, transaction: string, type: string): Action {
         let action = new Action(contentId)
         action.type = type
         action.text = text
-        action.replyTo = transaction.id
+        action.replyTo = transaction
         action.save()
         return action as Action;
     }
