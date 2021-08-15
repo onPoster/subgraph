@@ -24,16 +24,24 @@ export namespace actions {
 
         if (actionType == constants.MICROBLOG_POST_TYPE) {
             let replyTo = object.get("replyTo")
+            let image = object.get("image")
             if (replyTo != null) {
                 let replyToTransactionId = replyTo.toString()
                 let tx = Transaction.load(replyToTransactionId)
-                if (tx != null) { 
+                if (tx != null) {
                     return createReplyToAction(contentId, textContent, replyToTransactionId, constants.MICROBLOG_POST_TYPE)
+                }
+            }
+            // @TODO For now replies are not able to have images.
+            if (image != null) {
+                let ipfsHash = image.toString()
+                if (ipfsHash != null) {
+                    return createNewPostWithImage(contentId, textContent, ipfsHash, constants.MICROBLOG_POST_TYPE)
                 }
             }
             return createTextAction(contentId, textContent, constants.MICROBLOG_POST_TYPE)
         }
-        
+
         return createGenericAction(contentId, constants.UNSUPPORTED_POST_TYPE)
     }
 
@@ -50,6 +58,15 @@ export namespace actions {
         action.type = type
         action.text = text
         action.replyTo = transaction
+        action.save()
+        return action as Action;
+    }
+
+    export function createNewPostWithImage(contentId: string, text: string, image: string, type: string): Action {
+        let action = new Action(contentId)
+        action.type = type
+        action.text = text
+        action.image = image
         action.save()
         return action as Action;
     }
