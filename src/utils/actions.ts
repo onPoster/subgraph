@@ -1,6 +1,6 @@
 
 import { json } from "@graphprotocol/graph-ts";
-import { Action } from "../../generated/schema";
+import { Action, Transaction } from "../../generated/schema";
 import { constants } from "./constants";
 import { parser } from "./parser";
 
@@ -22,8 +22,16 @@ export namespace actions {
         let textContent = text.toString()
 
 
-        if (actionType == constants.NEW_POST_TYPE) {
-            return createTextAction(contentId, textContent, constants.NEW_POST_TYPE)
+        if (actionType == constants.MICROBLOG_POST_TYPE) {
+            let replyTo = object.get("replyTo")
+            if (replyTo != null) {
+                let replyToTransactionId = replyTo.toString()
+                let tx = Transaction.load(replyToTransactionId)
+                if (tx != null) { 
+                    return createReplyToAction(contentId, textContent, tx, constants.MICROBLOG_POST_TYPE)
+                }
+            }
+            return createTextAction(contentId, textContent, constants.MICROBLOG_POST_TYPE)
         }
         
         return createGenericAction(contentId, constants.UNSUPPORTED_POST_TYPE)
@@ -33,6 +41,15 @@ export namespace actions {
         let action = new Action(contentId)
         action.type = type
         action.text = text
+        action.save()
+        return action as Action;
+    }
+
+    export function createReplyToAction(contentId: string, text: string, transaction: Transaction, type: string): Action {
+        let action = new Action(contentId)
+        action.type = type
+        action.text = text
+        action.replyTo = transaction.id
         action.save()
         return action as Action;
     }

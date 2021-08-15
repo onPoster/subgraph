@@ -176,13 +176,38 @@ export class Action extends Entity {
     this.set("type", Value.fromString(value));
   }
 
-  get text(): string {
+  get text(): string | null {
     let value = this.get("text");
-    return value.toString();
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set text(value: string) {
-    this.set("text", Value.fromString(value));
+  set text(value: string | null) {
+    if (value === null) {
+      this.unset("text");
+    } else {
+      this.set("text", Value.fromString(value as string));
+    }
+  }
+
+  get replyTo(): string | null {
+    let value = this.get("replyTo");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set replyTo(value: string | null) {
+    if (value === null) {
+      this.unset("replyTo");
+    } else {
+      this.set("replyTo", Value.fromString(value as string));
+    }
   }
 }
 
