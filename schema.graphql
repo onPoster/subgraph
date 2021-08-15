@@ -18,6 +18,7 @@ type Action @entity {
 id:           ID!
 type:         String!
 text:         String
+replyTo:      Transaction
 }
 
 type Post @entity {
