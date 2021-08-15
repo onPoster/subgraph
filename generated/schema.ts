@@ -209,6 +209,23 @@ export class Action extends Entity {
       this.set("replyTo", Value.fromString(value as string));
     }
   }
+
+  get image(): string | null {
+    let value = this.get("image");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set image(value: string | null) {
+    if (value === null) {
+      this.unset("image");
+    } else {
+      this.set("image", Value.fromString(value as string));
+    }
+  }
 }
 
 export class Post extends Entity {
