@@ -1,10 +1,12 @@
 {
-  "name": "Poster-Subgraph",
+  "name": "@ethposter/subgraph",
   "license": "UNLICENSED",
+  "version": "0.1.0",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ crazyrabbitltc/Poster-Subgraph",
+    "define": "mustache ./config/$NETWORK.json subgraph.template.yaml > subgraph.yaml",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/",
     "create-local": "graph create --node http://localhost:8020/ crazyrabbitltc/Poster-Subgraph",
     "remove-local": "graph remove --node http://localhost:8020/ crazyrabbitltc/Poster-Subgraph",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 crazyrabbitltc/Poster-Subgraph"
@@ -12,5 +14,8 @@
   "dependencies": {
     "@graphprotocol/graph-cli": "0.21.1",
     "@graphprotocol/graph-ts": "0.20.0"
+  },
+  "devDependencies": {
+    "mustache": "^4.2.0"
   }
 }

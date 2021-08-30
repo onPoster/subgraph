@@ -137,6 +137,97 @@ export class Account extends Entity {
   }
 }
 
+export class Action extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Action entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Action entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Action", id.toString(), this);
+  }
+
+  static load(id: string): Action | null {
+    return store.get("Action", id) as Action | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get type(): string {
+    let value = this.get("type");
+    return value.toString();
+  }
+
+  set type(value: string) {
+    this.set("type", Value.fromString(value));
+  }
+
+  get text(): string | null {
+    let value = this.get("text");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set text(value: string | null) {
+    if (value === null) {
+      this.unset("text");
+    } else {
+      this.set("text", Value.fromString(value as string));
+    }
+  }
+
+  get replyTo(): string | null {
+    let value = this.get("replyTo");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set replyTo(value: string | null) {
+    if (value === null) {
+      this.unset("replyTo");
+    } else {
+      this.set("replyTo", Value.fromString(value as string));
+    }
+  }
+
+  get image(): string | null {
+    let value = this.get("image");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set image(value: string | null) {
+    if (value === null) {
+      this.unset("image");
+    } else {
+      this.set("image", Value.fromString(value as string));
+    }
+  }
+}
+
 export class Post extends Entity {
   constructor(id: string) {
     super();
@@ -183,6 +274,15 @@ export class Post extends Entity {
 
   set rawContent(value: string) {
     this.set("rawContent", Value.fromString(value));
+  }
+
+  get action(): string {
+    let value = this.get("action");
+    return value.toString();
+  }
+
+  set action(value: string) {
+    this.set("action", Value.fromString(value));
   }
 
   get tx(): string {

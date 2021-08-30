@@ -4,10 +4,10 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: Poster
-    network: rinkeby
+    network: {{network}}
     source:
-      address: "0xA0c7A49916Ce3ed7dd15871550212fcc7079AD61"
-      startBlock: 9031189
+      address: "0x0000000000A84Fe7f5d858c8A22121c975Ff0b42"
+      startBlock: {{startBlock}}
       abi: Poster
     mapping:
       kind: ethereum/events
