@@ -1,18 +1,40 @@
-import { Bytes, log } from "@graphprotocol/graph-ts"
+import { Bytes, log, JSONValue, JSONValueKind, TypedMap, json, ByteArray } from "@graphprotocol/graph-ts"
+
+class JsonStringResult {
+    data: string;
+    error: string;
+}
+class JsonResult {
+    object: TypedMap<string, JSONValue>;
+    error: string;
+}
 
 export namespace parser {
-    export function stringToBytes(str: string): Bytes {
-        let codePoints = new Bytes(str.length)
-        for (let i = 0; i < str.length; i++) {
-            codePoints[i] = str.codePointAt(i)
-        }
-        log.info(
-            "string and bytes-to-string: {} {}",
-            [
-                str,
-                codePoints.toString()
-            ]
+    export function getResultFromJson(content: string): JsonResult {
+        let result: JsonResult
+        result.error = "none"
+        let jsonResult = json.try_fromBytes(
+            ByteArray.fromUTF8(content) as Bytes
         )
-        return codePoints
+        if (jsonResult.isError) {
+            result.error = "Failed to parse JSON"
+            return result
+        }
+        result.object = jsonResult.value.toObject()
+        return result
+    }
+    export function getStringFromJson(
+        object: TypedMap<string, JSONValue>,
+        key: string
+    ): JsonStringResult {
+        let result: JsonStringResult
+        result.error = "none"
+        let value = object.get(key)
+        if (value.kind != JSONValueKind.STRING) {
+            result.error = "Missing valid Poster field: " + key
+            return result
+        }
+        result.data = value.toString()
+        return result
     }
 }
