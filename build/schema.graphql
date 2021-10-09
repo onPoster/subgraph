@@ -17,7 +17,9 @@ posts:        [Post!]! @derivedFrom(field: "poster")
 type Action @entity {
 id:           ID!
 type:         String!
-text:         String!
+text:         String
+replyTo:      Transaction
+image:        String
 }
 
 type Post @entity {
