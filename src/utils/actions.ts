@@ -1,5 +1,5 @@
 
-import { json, log } from "@graphprotocol/graph-ts";
+import { ByteArray, Bytes, json, log } from "@graphprotocol/graph-ts";
 import { Action, Transaction } from "../../generated/schema";
 import { constants } from "./constants";
 import { parser } from "./parser";
@@ -8,28 +8,27 @@ import { parser } from "./parser";
 export namespace actions {
 
     export function getAction(contentId: string, content: string): Action {
-        let bytes = parser.stringToBytes(content)
-        let result = json.try_fromBytes(bytes)
-        if (result.isError) {
+        let result = parser.getResultFromJson(content);
+        if (result.error) {
             return createGenericAction(contentId, constants.INVALID_POST_TYPE)
         }
-        let object = result.value.toObject()
+        let object = result.object;
 
         // L#20-27 Valid JSON objects will pass this, but trigger an error when
         // they are missing a JSON parameter that is then tried to be casted.
-        let action = object.get("type")
-        if (action == null) {
-            log.error('Post with content ID {} has no "type" parameter', [contentId])
+        let action = parser.getStringFromJson(object, "type")
+        if (action == null || action.error != 'none') {
+            log.error('Post with content ID {} errored on "type" parameter', [contentId])
             return createGenericAction(contentId, constants.UNSUPPORTED_POST_TYPE)
         }
-        let actionType = action.toString()
+        let actionType = action.data
 
-        let text = object.get("text")
-        if (text == null) {
-            log.error('Post with content ID {} has no "text" parameter', [contentId])
+        let text = parser.getStringFromJson(object, "type")
+        if (text == null || text.error != 'none') {
+            log.error('Post with content ID {} errored on "text" parameter', [contentId])
             return createGenericAction(contentId, constants.UNSUPPORTED_POST_TYPE)
         }
-        let textContent = text.toString()
+        let textContent = text.data
 
         if (actionType == constants.MICROBLOG_POST_TYPE) {
             let replyTo = object.get("replyTo")
