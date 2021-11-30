@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        network: ['goerli', 'polygon', 'xdai']
+        network: ['xdai']
 
     steps:
       - uses: actions/checkout@v2
@@ -43,4 +43,4 @@ jobs:
         env:
           NETWORK: ${{ matrix.network }}
         run: |
-          npm run deploy -- jjperezaguinaga/poster-${{ env.NETWORK }} --accessToken ${{ secrets.THEGRAPH_LEGACY_ACCESS_TOKEN }}
+          npm run deploy -- ethposter/poster-${{ env.NETWORK }} --accessToken ${{ secrets.THEGRAPH_LEGACY_ACCESS_TOKEN }}
