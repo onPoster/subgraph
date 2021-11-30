@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        network: ['goerli', 'polygon']
+        network: ['goerli', 'polygon', 'xdai']
 
     steps:
       - uses: actions/checkout@v2
