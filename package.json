@@ -1,5 +1,5 @@
 {
-  "name": "@ethposter/subgraph",
+  "name": "@onposter/subgraph",
   "license": "UNLICENSED",
   "version": "0.1.0",
   "scripts": {
@@ -7,9 +7,9 @@
     "build": "graph build",
     "define": "mustache ./config/$NETWORK.json subgraph.template.yaml > subgraph.yaml",
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/",
-    "create-local": "graph create --node http://localhost:8020/ crazyrabbitltc/Poster-Subgraph",
-    "remove-local": "graph remove --node http://localhost:8020/ crazyrabbitltc/Poster-Subgraph",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 crazyrabbitltc/Poster-Subgraph"
+    "create-local": "graph create --node http://localhost:8020/ onPoster/subgraph",
+    "remove-local": "graph remove --node http://localhost:8020/ onPoster/subgraph",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 onPoster/subgraph"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.21.1",
