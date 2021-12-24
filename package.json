@@ -7,9 +7,9 @@
     "build": "graph build",
     "define": "mustache ./config/$NETWORK.json subgraph.template.yaml > subgraph.yaml",
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/",
-    "create-local": "graph create --node http://localhost:8020/ onPoster/subgraph",
-    "remove-local": "graph remove --node http://localhost:8020/ onPoster/subgraph",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 onPoster/subgraph"
+    "create-local": "graph create --node http://localhost:8020/ onposter/poster-localhost",
+    "remove-local": "graph remove --node http://localhost:8020/ onposter/poster-localhost",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 onposter/poster-localhost"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.21.1",
