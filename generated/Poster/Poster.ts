@@ -30,6 +30,10 @@ export class NewPost__Params {
   get content(): string {
     return this._event.parameters[1].value.toString();
   }
+
+  get tag(): Bytes {
+    return this._event.parameters[2].value.toBytes();
+  }
 }
 
 export class Poster extends ethereum.SmartContract {
@@ -57,6 +61,10 @@ export class PostCall__Inputs {
 
   get content(): string {
     return this._call.inputValues[0].value.toString();
+  }
+
+  get tag(): string {
+    return this._call.inputValues[1].value.toString();
   }
 }
 

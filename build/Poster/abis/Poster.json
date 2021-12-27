@@ -13,6 +13,12 @@
         "internalType": "string",
         "name": "content",
         "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "tag",
+        "type": "string"
       }
     ],
     "name": "NewPost",
@@ -23,6 +29,11 @@
       {
         "internalType": "string",
         "name": "content",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "tag",
         "type": "string"
       }
     ],

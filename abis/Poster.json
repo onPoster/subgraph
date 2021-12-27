@@ -13,6 +13,12 @@
         "internalType": "string",
         "name": "content",
         "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "tag",
+        "type": "string"
       }
     ],
     "name": "NewPost",
@@ -20,7 +26,16 @@
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "content", "type": "string" }
+      {
+        "internalType": "string",
+        "name": "content",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "tag",
+        "type": "string"
+      }
     ],
     "name": "post",
     "outputs": [],
