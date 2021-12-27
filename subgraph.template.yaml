@@ -19,6 +19,6 @@ dataSources:
         - name: Poster
           file: ./abis/Poster.json
       eventHandlers:
-        - event: NewPost(indexed address,string)
+        - event: NewPost(indexed address,string,indexed string)
           handler: handleNewPost
       file: ./src/mapping.ts
