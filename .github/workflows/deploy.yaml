@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        network: ['xdai']
+        network: ['gnosis']
 
     steps:
       - uses: actions/checkout@v2
