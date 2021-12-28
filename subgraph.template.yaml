@@ -6,7 +6,7 @@ dataSources:
     name: Poster
     network: {{network}}
     source:
-      address: "0x000000000000cd17345801aa8147b8D3950260FF"
+      address: "0x000000000000cd17345801aa8147b8d3950260ff"
       startBlock: {{startBlock}}
       abi: Poster
     mapping:
