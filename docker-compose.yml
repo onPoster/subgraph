@@ -23,8 +23,14 @@ services:
     image: ipfs/go-ipfs:latest
     ports:
       - "5001:5001"
+      - "4001:4001"
+      - "8080:8080"
     volumes:
       - ./data/ipfs:/data/ipfs
+      - ./cors.sh:/cors.sh
+      - ./start_ipfs.sh:/start_ipfs.sh
+    entrypoint: /bin/sh
+    command: /start_ipfs.sh
   postgres:
     image: postgres
     ports:
