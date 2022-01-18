@@ -1,6 +1,8 @@
 version: "3"
 services:
   graph-node:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     image: graphprotocol/graph-node:latest
     ports:
       - "8000:8000"
@@ -18,7 +20,7 @@ services:
       postgres_db: graph-node
       ipfs: "ipfs:5001"
       ethereum: "localhost:http://host.docker.internal:8545"
-      GRAPH_LOG: info
+      GRAPH_LOG: trace
   ipfs:
     image: ipfs/go-ipfs:latest
     ports:
@@ -26,7 +28,7 @@ services:
       - "4001:4001"
       - "8080:8080"
     volumes:
-      - ./data/ipfs:/data/ipfs
+      # - ./data/ipfs:/data/ipfs
       - ./cors.sh:/cors.sh
       - ./start_ipfs.sh:/start_ipfs.sh
     entrypoint: /bin/sh
@@ -40,5 +42,5 @@ services:
       POSTGRES_USER: graph-node
       POSTGRES_PASSWORD: let-me-in
       POSTGRES_DB: graph-node
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+    # volumes:
+    #   - ./data/postgres:/var/lib/postgresql/data
