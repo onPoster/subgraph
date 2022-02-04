@@ -9,7 +9,7 @@ export namespace actions {
 
     export function getAction(contentId: string, content: string): Action {
         let result = parser.getResultFromJson(content);
-        if (result.error) {
+        if (result.error != 'none') {
             return createGenericAction(contentId, constants.INVALID_POST_TYPE)
         }
         let object = result.object;
@@ -17,14 +17,13 @@ export namespace actions {
         // L#20-27 Valid JSON objects will pass this, but trigger an error when
         // they are missing a JSON parameter that is then tried to be casted.
         let action = parser.getStringFromJson(object, "type")
-        if (action == null || action.error != 'none') {
+        if (action.error != 'none') {
             log.error('Post with content ID {} errored on "type" parameter', [contentId])
             return createGenericAction(contentId, constants.UNSUPPORTED_POST_TYPE)
         }
         let actionType = action.data
-
-        let text = parser.getStringFromJson(object, "type")
-        if (text == null || text.error != 'none') {
+        let text = parser.getStringFromJson(object, "text")
+        if (text.error != 'none') {
             log.error('Post with content ID {} errored on "text" parameter', [contentId])
             return createGenericAction(contentId, constants.UNSUPPORTED_POST_TYPE)
         }
